@@ -69,7 +69,7 @@ class CleverTapPlugin {
   static const MethodChannel _nativeToDartMethodChannel =
       const MethodChannel('clevertap_plugin/native_to_dart');
 
- static CleverTapPlugin? _instance;
+  static CleverTapPlugin? _instance;
 
   factory CleverTapPlugin() {
     print("CleverTapPlugin() called");
@@ -83,25 +83,12 @@ class CleverTapPlugin {
     _init();
   }
 
- void _init() {
+  void _init() {
     _dartToNativeMethodChannel.invokeMethod(
       'setLibrary',
       {'libName': libName, 'libVersion': libVersion},
     );
     _nativeToDartMethodChannel.setMethodCallHandler(_platformCallHandler);
-  }
-
- void reInit() {
-    _init();
-  }
-
-  /// Static method untuk membuang instance lama, supaya factory akan buat ulang
-  static void resetInstance() {
-    _instance = null;
-  }
-
-  static void registerHandler(Future<dynamic> Function(MethodCall call) handler) {
-    _nativeToDartMethodChannel.setMethodCallHandler(handler);
   }
 
 
@@ -723,6 +710,10 @@ class CleverTapPlugin {
   static Future<void> recordScreenView(String screenName) async {
     return await _dartToNativeMethodChannel
         .invokeMethod('recordScreenView', {'screenName': screenName});
+  }
+
+  static Future<void> resetInstance() async {
+    return await _dartToNativeMethodChannel.invokeMethod('resetInstance', {});
   }
 
   /// Pushes a basic event.

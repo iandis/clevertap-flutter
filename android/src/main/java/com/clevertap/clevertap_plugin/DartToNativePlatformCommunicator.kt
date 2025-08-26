@@ -83,6 +83,11 @@ class DartToNativePlatformCommunicator(
             "startEmission" -> {
                 startEmission(call = call, result = result)
             }
+
+            "resetInstance" -> {
+                resetInstance(call, result)
+            }
+
             "getAppLaunchNotification" -> {
                 getAppLaunchNotification(result)
             }
@@ -543,6 +548,7 @@ class DartToNativePlatformCommunicator(
             "getLong" -> {
                 getLong(call, result)
             }
+            
 
             "getDouble" -> {
                 getDouble(call, result)
@@ -551,6 +557,8 @@ class DartToNativePlatformCommunicator(
             "registerForPush" -> {
                 Log.d(TAG, "registerForPush$ERROR_IOS")
             }
+
+           
 
             "getInitialUrl" -> {
                 Log.d(TAG, "getInitialUrl$ERROR_IOS")
@@ -642,6 +650,11 @@ class DartToNativePlatformCommunicator(
                 result.notImplemented()
             }
         }
+    }
+
+    private fun resetInstance(call: MethodCall, result: MethodChannel.Result) {
+        CleverTapPlugin.resetInstance()
+        result.success(null)
     }
 
     private fun startEmission(

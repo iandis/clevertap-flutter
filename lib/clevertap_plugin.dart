@@ -69,33 +69,41 @@ class CleverTapPlugin {
   static const MethodChannel _nativeToDartMethodChannel =
       const MethodChannel('clevertap_plugin/native_to_dart');
 
-  static final CleverTapPlugin _clevertapPlugin =
-      new CleverTapPlugin._internal();
+ static CleverTapPlugin? _instance;
 
   factory CleverTapPlugin() {
     print("CleverTapPlugin() called");
-    return _clevertapPlugin;
+    return _instance ??= CleverTapPlugin._internal();
   }
 
   static const libName = 'Flutter';
-
-  static const libVersion =
-      30501; // If the current version is X.X.X then pass as X0X0X
+  static const libVersion = 30501; // If the current version is X.X.X then pass as X0X0X
 
   CleverTapPlugin._internal() {
     _init();
   }
 
-  void _init() {
+ void _init() {
     _dartToNativeMethodChannel.invokeMethod(
-        'setLibrary', {'libName': libName, 'libVersion': libVersion});
+      'setLibrary',
+      {'libName': libName, 'libVersion': libVersion},
+    );
     _nativeToDartMethodChannel.setMethodCallHandler(_platformCallHandler);
   }
 
-  /// dipanggil kalau mau re-init
-  void reInit() {
+ void reInit() {
     _init();
   }
+
+  /// Static method untuk membuang instance lama, supaya factory akan buat ulang
+  static void resetInstance() {
+    _instance = null;
+  }
+
+  static void registerHandler(Future<dynamic> Function(MethodCall call) handler) {
+    _nativeToDartMethodChannel.setMethodCallHandler(handler);
+  }
+
 
   Future _platformCallHandler(MethodCall call) async {
     print("_platformCallHandler call ${call.method} ${call.arguments}");

@@ -83,10 +83,18 @@ class CleverTapPlugin {
       30501; // If the current version is X.X.X then pass as X0X0X
 
   CleverTapPlugin._internal() {
-    /// Set the CleverTap Flutter library name and the current version for version tracking
+    _init();
+  }
+
+  void _init() {
     _dartToNativeMethodChannel.invokeMethod(
         'setLibrary', {'libName': libName, 'libVersion': libVersion});
     _nativeToDartMethodChannel.setMethodCallHandler(_platformCallHandler);
+  }
+
+  /// dipanggil kalau mau re-init
+  void reInit() {
+    _init();
   }
 
   Future _platformCallHandler(MethodCall call) async {

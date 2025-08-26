@@ -653,7 +653,7 @@ class DartToNativePlatformCommunicator(
     }
 
     private fun resetInstance(call: MethodCall, result: MethodChannel.Result) {
-        CleverTapPlugin.resetInstance()
+        CleverTapPlugin.resetInstance(context)
         result.success(null)
     }
 

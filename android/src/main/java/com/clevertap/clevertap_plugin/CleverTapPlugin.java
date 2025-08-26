@@ -119,13 +119,15 @@ public class CleverTapPlugin implements ActivityAware, FlutterPlugin {
         }
     }
 
-    public static void resetInstance() {
+    public static void resetInstance(Context context) {
+        this.context = context.getApplicationContext();
         CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(this.context);
         if (cleverTapAPI != null) {
             CleverTapListenerProxy.attachToInstance(cleverTapAPI);
             cleverTapAPI.setLibrary("Flutter");
         }
     }
+
 
     private MethodChannel getMethodChannel(
             String channelName,

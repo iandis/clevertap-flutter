@@ -49,6 +49,12 @@ android {
 
     compileSdk = 36
 
+    defaultConfig {
+        // The CleverTap Android SDK's own minimum. Without a minSdk the library's manifest has no <uses-sdk>, so the
+        // manifest merger treats it as targeting API 1 and adds READ_PHONE_STATE and the storage permissions to the app.
+        minSdk = 23
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

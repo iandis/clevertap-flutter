@@ -187,6 +187,8 @@ static NSDateFormatter *dateFormatter;
         result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
     else if ([@"recordEvent" isEqualToString:call.method])
         [self recordEvent:call withResult:result];
+    else if ([@"resetInstance" isEqualToString:call.method])
+        [self resetInstance:call withResult:result];
     else if ([@"setDebugLevel" isEqualToString:call.method])
         [self setDebugLog:call withResult:result];
     else if ([@"profileSet" isEqualToString:call.method])
@@ -526,6 +528,11 @@ static NSDateFormatter *dateFormatter;
 - (void)recordEvent:(FlutterMethodCall *)call withResult:(FlutterResult)result {
     
     [[CleverTap sharedInstance] recordEvent:call.arguments[@"eventName"] withProps:call.arguments[@"eventData"]];
+    result(nil);
+}
+
+// Android only: re-attaches the listeners to a replaced default instance. iOS keeps one shared instance.
+- (void)resetInstance:(FlutterMethodCall *)call withResult:(FlutterResult)result {
     result(nil);
 }
 

@@ -84,6 +84,11 @@ class DartToNativePlatformCommunicator(
             "startEmission" -> {
                 startEmission(call = call, result = result)
             }
+
+            "resetInstance" -> {
+                resetInstance(result)
+            }
+
             "getAppLaunchNotification" -> {
                 getAppLaunchNotification(result)
             }
@@ -675,6 +680,11 @@ class DartToNativePlatformCommunicator(
                 result.notImplemented()
             }
         }
+    }
+
+    private fun resetInstance(result: MethodChannel.Result) {
+        CleverTapPlugin.resetInstance(context)
+        result.success(null)
     }
 
     private fun startEmission(

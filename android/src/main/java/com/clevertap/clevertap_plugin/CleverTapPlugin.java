@@ -119,6 +119,20 @@ public class CleverTapPlugin implements ActivityAware, FlutterPlugin {
         }
     }
 
+    /**
+     * Attaches the plugin's listeners to the current default CleverTap instance and sets the Flutter library on it.
+     * Apps that replace the default instance natively (e.g. {@code CleverTapAPI.setInstances(null)} on logout) call
+     * this through {@code CleverTapPlugin.resetInstance()} in Dart, so the callbacks of the new instance reach Dart.
+     */
+    public static void resetInstance(Context context) {
+        Context appContext = context.getApplicationContext();
+        CleverTapAPI cleverTapAPI = CleverTapAPI.getDefaultInstance(appContext);
+        if (cleverTapAPI != null) {
+            CleverTapListenerProxy.attachToInstance(cleverTapAPI);
+            cleverTapAPI.setLibrary("Flutter");
+        }
+    }
+
     private MethodChannel getMethodChannel(
             String channelName,
             BinaryMessenger messenger

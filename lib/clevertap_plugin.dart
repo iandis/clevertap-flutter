@@ -713,6 +713,16 @@ class CleverTapPlugin {
         .invokeMethod('recordScreenView', {'screenName': screenName});
   }
 
+  /// Only for Android - Attaches the plugin's listeners (push clicked, in-app, App Inbox, ...) to the
+  /// current default CleverTap instance and sets the Flutter library on it.
+  ///
+  /// Call it after the app replaces the default instance natively (e.g. `CleverTapAPI.setInstances(null)`
+  /// followed by `CleverTapAPI.getDefaultInstance(context)` on logout). Otherwise the new instance raises
+  /// its callbacks to no listener and the Dart handlers stop firing. A no-op on iOS.
+  static Future<void> resetInstance() async {
+    return await _dartToNativeMethodChannel.invokeMethod('resetInstance', {});
+  }
+
   /// Pushes a basic event.
   static Future<void> recordEvent(
       String eventName, Map<String, dynamic> properties) async {

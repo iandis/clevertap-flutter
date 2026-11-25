@@ -1,5 +1,13 @@
 ## CHANGE LOG
 
+Version 3.5.3, fork with Swift Package Manager *(25 November 2026)*
+-------------------------------------------
+**What's new**
+* **[iOS Platform]**
+  * Supports Swift Package Manager: the sources move to `ios/clevertap_plugin/Sources/clevertap_plugin`, with a `Package.swift` that depends on the [CleverTap iOS SDK package](https://github.com/CleverTap/clevertap-ios-sdk) and Flutter's `FlutterFramework` package (Flutter 3.44 or later). CocoaPods builds keep working.
+  * Supports [CleverTap iOS SDK v7.4.2](https://github.com/CleverTap/clevertap-ios-sdk/blob/master/CHANGELOG.md) (was v7.3.3). From v7.4.0 the SDK's Swift package names its SDWebImage copy `SDWebImageCT`, so it no longer clashes with an app's other SDWebImage package.
+  * The SDK headers are imported as `<CleverTapSDK/…>` when the SDK comes as a framework, as before otherwise.
+
 Version 3.5.3 *(22 September 2025)*
 -------------------------------------------
 **What's new**

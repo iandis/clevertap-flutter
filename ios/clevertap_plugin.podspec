@@ -10,10 +10,10 @@ Pod::Spec.new do |s|
   s.license                  = { :file => '../LICENSE' }
   s.author                   = { "CleverTap" => "http://www.clevertap.com" }
   s.source                   = { :path => '.' }
-  s.source_files             = 'Classes/**/*'
-  s.public_header_files      = 'Classes/**/*.h'
+  s.source_files             = 'clevertap_plugin/Sources/clevertap_plugin/**/*.{h,m}'
+  s.public_header_files      = 'clevertap_plugin/Sources/clevertap_plugin/include/clevertap_plugin/*.h'
   s.dependency               'Flutter'
-  s.dependency               'CleverTap-iOS-SDK', '7.3.3'
+  s.dependency               'CleverTap-iOS-SDK', '7.4.2'
   s.ios.deployment_target    = '9.0'
 end
 
